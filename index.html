@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title><h1>factorial</h1></title>
+        <script type="text/javascript">
+            function fact()
+            {
+                var fact=1;
+                var n=parseInt(document.f2.m.value);
+                for(i=1;i<=n;i++)
+                {
+                    fact=fact*i;
+
+                }
+            }
+            document.f2.x.value=fact;
+
+        </script>
+    </head>
+    <body bgcolor="green">
+        <form name="f2" align="center">
+            Number:<input type="text" name="m"><br><br>
+            <input type="button" value="submit" onclick="fact()"><br><br>
+            the factorial of:<input type="text" name="x">
+        </form>
+    </body>
+</html>
