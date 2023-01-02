@@ -1,26 +1,63 @@
-<html>
-    <head>
-        <title><h1>factorial</h1></title>
-        <script type="text/javascript">
-            function fact()
-            {
-                var fact=1;
-                var n=parseInt(document.f2.m.value);
-                for(i=1;i<=n;i++)
-                {
-                    fact=fact*i;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration formt</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="regi" href="reg.js">
+</head>
 
-                }
-            }
-            document.f2.x.value=fact;
+<body>
+    <div class="Form">
+        <h1 align="Center"><b>Registration Formm</b></h1>
+        <div class="main">
+            Enter your name:
+            <input type="text" id="first" placeholder="First Name" required><br>
+            <span id="warn1"></span>
+            <br>
 
-        </script>
-    </head>
-    <body bgcolor="green">
-        <form name="f2" align="center">
-            Number:<input type="text" name="m"><br><br>
-            <input type="button" value="submit" onclick="fact()"><br><br>
-            the factorial of:<input type="text" name="x">
-        </form>
-    </body>
+            Enter your dob:
+            <input type="date" id="last" placeholder="Enter your dob" required><br>
+            <span id="warn3"></span><br>
+
+            Gender:
+            <label for="selections">
+                <input type="radio" name="selectionsa" id="Male">Male
+                <input type="radio" name="selectionsa" id="Female">Female
+            </label><br><br>
+
+            Phone number:
+            <input type="text" maxlength="13" id="tele" placeholder="Mobile number"><br><br>
+
+            <label>Adddress:</label><br>
+            <textarea placeholder="Enter the address" id="Address" cols="30" rows="5"></textarea><br>
+
+            <label>course</label>
+            <select id="course" class="cs" name="course">
+                <option value="EC">EC</option>
+                <option value="CS">CS</option>
+                <option value="CE">CE</option>
+                <option value="ME">ME</option>
+                <option value="MC">MC</option>
+                <option value="AT">AT</option>
+                <option value="PT">PT</option>
+                <option value="EE">EE</option>
+            </select><br>
+
+            
+            
+            
+
+            Password:
+            <input type="password" id="password"><br><br>
+
+            Confirm Password:
+            <input type="password" id="password"><br><br>
+
+            <input type="submit" value="Submit" onclick="Signin()">
+            <input type="reset" value="Reset">
+        </div>
+
 </html>
