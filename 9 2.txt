@@ -1,0 +1,147 @@
+
+Subject: lab 9 one
+
+Vasista Kartikeya <ksvk5455@gmail.com>
+1:05 PM (1 hour ago)
+to Vasista Kartikeya
+
+You are viewing an attached message. Gmail can't verify the authenticity of attached messages.
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+  int data;
+  struct node *next;
+  struct node *prev;
+};
+
+struct node *head = NULL;
+
+void insertAtFront(int data) {
+  struct node *newNode = malloc(sizeof(struct node));
+  newNode->data = data;
+  newNode->next = head;
+  newNode->prev = NULL;
+  if (head == NULL) {
+    head = newNode;
+    newNode->next = newNode;
+    newNode->prev = newNode;
+  } else {
+    head->prev = newNode;
+    newNode->next = head;
+    head = newNode;
+  }
+}
+
+void insertAtEnd(int data) {
+  struct node *newNode = malloc(sizeof(struct node));
+  newNode->data = data;
+  newNode->next = NULL;
+  newNode->prev = NULL;
+  if (head == NULL) {
+    head = newNode;
+    newNode->next = newNode;
+    newNode->prev = newNode;
+  } else {
+    struct node *temp = head;
+    while (temp->next != head) {
+      temp = temp->next;
+    }
+    newNode->next = head;
+    newNode->prev = temp;
+    head->prev = newNode;
+    temp->next = newNode;
+  }
+}
+
+void deleteFirst() {
+  if (head == NULL) {
+    printf("List is empty.\n");
+    return;
+  }
+  struct node *temp = head;
+  if (head->next == head) {
+    head = NULL;
+  } else {
+    head = head->next;
+    head->prev = temp->prev;
+    temp->prev->next = head;
+  }
+  free(temp);
+}
+
+void deleteLast() {
+  if (head == NULL) {
+    printf("List is empty.\n");
+    return;
+  }
+  struct node *temp = head;
+  while (temp->next != head) {
+    temp = temp->next;
+  }
+  if (head->next == head) {
+    head = NULL;
+  } else {
+    head->prev = temp->prev;
+    temp->prev->next = head;
+  }
+  free(temp);
+}
+
+void display() {
+  if (head == NULL) {
+    printf("List is empty.\n");
+    return;
+  }
+  struct node *temp = head;
+  while (temp->next != head) {
+    printf("%d ", temp->data);
+    temp = temp->next;
+  }
+  printf("%d\n", temp->data);
+}
+
+int main() {
+  int choice, data;
+  while (1) {
+    printf("\nMenu\n");
+    printf("1. Insert at front\n");
+    printf("2. Insert at end\n");
+    printf("3. Delete first\n");
+    printf("4. Delete last\n");
+    printf("5. Display\n");
+    printf("6. Exit\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    switch (choice) {
+      case 1:
+        printf("Enter the data to be inserted: ");
+        scanf("%d", &data);
+        insertAtFront(data);
+        break;
+      case 2:
+        printf("Enter the data to be inserted: ");
+        scanf("%d", &data);
+        insertAtEnd(data);
+        break;
+      case 3:
+        deleteFirst();
+        break;
+      case 4:
+        deleteLast();
+        break;
+      case 5:
+        display();
+        break;
+      case 6:
+        exit(0);
+        break;
+      default:
+        printf("Invalid choice.\n");
+        break;
+    }
+  }
+  return 0;
+}
+
