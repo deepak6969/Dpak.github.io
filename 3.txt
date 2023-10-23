@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class StudentGradeCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter student's name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter roll number: ");
+        int rollNumber = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Enter marks in subject 1: ");
+        int subject1Marks = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Enter marks in subject 2: ");
+        int subject2Marks = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Enter marks in subject 3: ");
+        int subject3Marks = Integer.parseInt(scanner.nextLine());
+
+        try {
+            double totalMarks = subject1Marks + subject2Marks + subject3Marks;
+            double percentage = (totalMarks / 300) * 100;
+
+            String grade;
+            if (percentage >= 90) {
+                grade = "A";
+            } else if (percentage >= 80) {
+                grade = "B";
+            } else if (percentage >= 70) {
+                grade = "C";
+            } else if (percentage >= 60) {
+                grade = "D";
+            } else {
+                grade = "F";
+            }
+
+            System.out.println("Student Name: " + name);
+            System.out.println("Roll Number: " + rollNumber);
+            System.out.println("Percentage: " + percentage + "%");
+            System.out.println("Grade: " + grade);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter valid marks.");
+        }
+    }
+}

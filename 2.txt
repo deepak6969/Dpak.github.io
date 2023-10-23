@@ -1,94 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
+public class ArrayOverflowExample {
+    public static void main(String[] args) {
+        int[] array = new int[5]; // Create an array of size 5
 
-// Define a linked list node structure
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-// Function to create a new node with the given data
-struct Node* createNode(int data) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    if (newNode == NULL) {
-        printf("Memory allocation failed.\n");
-        exit(1);
-    }
-    newNode->data = data;
-    newNode->next = NULL;
-    return newNode;
-}
-
-// Function to insert an element after another element in the list
-void insertAfter(struct Node** head, int element, int newElement) {
-    struct Node* newNode = createNode(newElement);
-    struct Node* current = *head;
-
-    while (current != NULL && current->data != element) {
-        current = current->next;
-    }
-
-    if (current == NULL) {
-        printf("Element not found in the list.\n");
-        free(newNode);
-        return;
-    }
-
-    newNode->next = current->next;
-    current->next = newNode;
-
-    printf("Element %d inserted after %d.\n", newElement, element);
-}
-
-// Function to display the linked list
-void displayList(struct Node* head) {
-    struct Node* current = head;
-    while (current != NULL) {
-        printf("%d -> ", current->data);
-        current = current->next;
-    }
-    printf("NULL\n");
-}
-
-int main() {
-    struct Node* head = NULL;
-    int choice, element, newElement;
-
-    do {
-        printf("\nMenu:\n");
-        printf("1. Insert an element after another element\n");
-        printf("2. Display the list\n");
-        printf("3. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-            case 1:
-                printf("Enter the element after which you want to insert: ");
-                scanf("%d", &element);
-                printf("Enter the new element to insert: ");
-                scanf("%d", &newElement);
-                insertAfter(&head, element, newElement);
-                break;
-            case 2:
-                printf("Linked List: ");
-                displayList(head);
-                break;
-            case 3:
-                printf("Exiting the program.\n");
-                break;
-            default:
-                printf("Invalid choice. Please try again.\n");
+        try {
+            // Access or modify elements beyond the array size
+            for (int i = 0; i <= array.length; i++) {
+                array[i] = i;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ArrayOverflowException occurred!");
+            System.out.println("Please ensure that you do not exceed the array size.");
         }
-    } while (choice != 3);
-
-    // Free the memory allocated for the linked list nodes
-    struct Node* current = head;
-    while (current != NULL) {
-        struct Node* temp = current;
-        current = current->next;
-        free(temp);
     }
-
-    return 0;
 }
