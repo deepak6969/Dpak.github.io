@@ -1,12 +1,53 @@
-public class NumberFormatExceptionExample {
-    public static void main(String[] args) {
-        String numberString = "abc"; // Invalid number string
+package lab11;
 
-        try {
-            int number = Integer.parseInt(numberString);
-            System.out.println("Number: " + number);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid number format: " + numberString);
+import java.util.Scanner;
+
+public class main1 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Menu:");
+        System.out.println("1. Create a thread using the Runnable interface");
+        System.out.println("2. Create a thread by inheriting the Thread class");
+        System.out.print("Enter your choice: ");
+
+        int choice = sc.nextInt();
+
+        switch (choice) {
+            case 1:
+                createRunnableThread();
+                break;
+            case 2:
+                createInheritedThread();
+                break;
+            default:
+                System.out.println("Invalid choice");
         }
     }
+
+    private static void createRunnableThread() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("This is a Runnable thread");
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
+    private static void createInheritedThread() {
+        class InheritedThread extends Thread {
+            @Override
+            public void run() {
+                System.out.println("This is an inherited thread");
+            }
+        }
+
+        InheritedThread thread = new InheritedThread();
+        thread.start();
+    }
 }
+

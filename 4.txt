@@ -1,0 +1,31 @@
+package lab11;
+
+public class main4 {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        // Create a new thread and set its priority to MAX_PRIORITY
+        Thread thread = new Thread(() -> {
+            try {
+                // Sleep for 5 seconds
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                // Check if the thread was interrupted
+                System.out.println("The thread was interrupted!");
+            }
+        });
+        thread.setPriority(Thread.MAX_PRIORITY);
+
+        // Start the thread
+        thread.start();
+
+        // Wait for 1 second
+        Thread.sleep(1000);
+
+        // Interrupt the thread
+        thread.interrupt();
+
+        // Wait for the thread to finish
+        thread.join();
+    }
+}

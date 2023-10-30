@@ -1,15 +1,96 @@
-public class ArrayOverflowExample {
-    public static void main(String[] args) {
-        int[] array = new int[5]; // Create an array of size 5
+package lab11;
 
-        try {
-            // Access or modify elements beyond the array size
-            for (int i = 0; i <= array.length; i++) {
-                array[i] = i;
+import threading;
+
+class Matrix {
+    private int[][] matrix;
+
+    public Matrix(int[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    public void display() {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("ArrayOverflowException occurred!");
-            System.out.println("Please ensure that you do not exceed the array size.");
+            System.out.println();
+        }
+    }
+
+    public Matrix transpose() {
+        int[][] transposeMatrix = new int[matrix[0].length][matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                transposeMatrix[j][i] = matrix[i][j];
+            }
+        }
+        return new Matrix(transposeMatrix);
+    }
+
+    public int maximum() {
+        int max = matrix[0][0];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] > max) {
+                    max = matrix[i][j];
+                }
+            }
+        }
+        return max;
+    }
+
+    public int[] principalDiagonal() {
+        int[] principalDiagonal = new int[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            principalDiagonal[i] = matrix[i][i];
+        }
+        return principalDiagonal;
+    }
+
+    public int[] nonDiagonal() {
+        int[] nonDiagonal = new int[matrix.length * matrix[0].length - matrix.length];
+        int index = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i != j) {
+                    nonDiagonal[index] = matrix[i][j];
+                    index++;
+                }
+            }
+        }
+        return nonDiagonal;
+    }
+}
+
+public class main2 {
+    public static void main(String[] args) {
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+        // Create 5 threads to display the matrix, transpose, maximum value, principal diagonal, and non-diagonal elements
+        Thread t1 = new Thread(() -> new Matrix(matrix).display());
+        Thread t2 = new Thread(() -> new Matrix(matrix).transpose().display());
+        Thread t3 = new Thread(() -> System.out.println("Maximum value in the matrix is: " + new Matrix(matrix).maximum()));
+        Thread t4 = new Thread(() -> System.out.println("Principal diagonal elements are: " + new Matrix(matrix).principalDiagonal()));
+        Thread t5 = new Thread(() -> System.out.println("Non diagonal elements are: " + new Matrix(matrix).nonDiagonal()));
+
+        // Start all threads
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
+
+        // Wait for all threads to finish
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+            t4.join();
+            t5.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
+
